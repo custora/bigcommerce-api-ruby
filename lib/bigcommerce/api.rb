@@ -41,23 +41,39 @@ module BigCommerce
     end
 
     def get_products(params={})
-      @connection.get '/products'
+      @connection.get('/products', params: params)
     end
 
-    def get_brands
-      @connection.get '/brands'
+    def get_product_count
+      @connection.get '/products/count'
+    end
+
+    def get_brands(params = {})
+      @connection.get('/brands', params: params)
+    end
+
+    def get_brand(id)
+      @connection.get '/brands/' + id.to_s
+    end
+
+    def get_brand_count
+      @connection.get '/brands/count'
     end
 
     def get_product(id)
       @connection.get '/products/' + id.to_s
     end
 
-    def get_categories
-      @connection.get '/categories'
+    def get_categories(params = {})
+      @connection.get('/categories', params: params)
     end
 
     def get_category(id)
       @connection.get '/categories/' + id.to_s
+    end
+
+    def get_category_count
+      @connection.get '/categories/count'
     end
 
     def get_orders(params={})
@@ -88,9 +104,8 @@ module BigCommerce
       @connection.get('/orders', :headers => {'If-Modified-Since' => CGI::escape(to_rfc2822(datetime))})
     end
 
-    def get_customers(_filters = {})
-      url_filters = _filters.map{|k,v| "#{k}=#{v}"}.join("&")
-      @connection.get "/customers#{url_filters.present? ? ("?" + url_filters) : ""}"
+    def get_customers(params = {})
+      @connection.get "/customers", params: params
     end
 
     def get_customer(id)
