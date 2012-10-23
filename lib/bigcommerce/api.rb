@@ -45,7 +45,7 @@ module BigCommerce
     end
 
     def get_product_count
-      @connection.get '/products/count'
+      get_count @connection.get '/products/count'
     end
 
     def get_brands(params = {})
@@ -57,7 +57,7 @@ module BigCommerce
     end
 
     def get_brand_count
-      @connection.get '/brands/count'
+      get_count @connection.get '/brands/count'
     end
 
     def get_product(id)
@@ -73,7 +73,7 @@ module BigCommerce
     end
 
     def get_category_count
-      @connection.get '/categories/count'
+      get_count @connection.get '/categories/count'
     end
 
     def get_orders(params={})
@@ -113,7 +113,7 @@ module BigCommerce
     end
 
     def get_customer_count
-      @connection.get '/customers/count'
+      get_count @connection.get '/customers/count'
     end
 
     def create_product(attributes)
@@ -127,7 +127,7 @@ module BigCommerce
     private
 
     def get_count(result)
-      result["count"]
+      result.is_a?(Hash) ? result["count"] : false
     end
 
     def get_resource(result)
